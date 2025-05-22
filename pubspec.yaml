@@ -1,0 +1,23 @@
+name: hendra_software_testing_midterm
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  build_runner: ^2.4.13
+  flutter:
+    sdk: flutter
+  http: ^1.4.0
+  mockito: ^5.4.4
+  provider: ^6.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
