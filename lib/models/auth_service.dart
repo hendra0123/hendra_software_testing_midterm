@@ -1,4 +1,3 @@
-// lib/services/auth_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +16,5 @@ class AuthService {
     }
   }
 
-  Future<void> logout() async {
-    // Implementasi logout jika diperlukan
-  }
+  Future<void> logout() async {}
 }

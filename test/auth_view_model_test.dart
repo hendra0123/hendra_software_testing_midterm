@@ -1,4 +1,3 @@
-// test/viewmodels/auth_view_model_test.dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hendra_software_testing_midterm/models/auth_service.dart';
 import 'package:hendra_software_testing_midterm/viewmodels/auth_view_model.dart';
@@ -76,11 +75,21 @@ void main() {
     });
 
     test('TC_AUTH_VM_005: Logout Functionality', () async {
-      mockAuthService.stubLogout(() async => null);
+      mockAuthService.stubLogin((username, password) async => {
+            'username': 'loggedUser',
+            'token': 'xyz456',
+          });
+      await authViewModel.login('loggedUser', 'password123');
 
+      expect(authViewModel.user?.username, 'loggedUser');
+      expect(authViewModel.isLoggedIn, true);
+
+      mockAuthService.stubLogout(() async => null);
       await authViewModel.logout();
 
       expect(mockAuthService.logoutCalled, true);
+      expect(authViewModel.user, null);
+      expect(authViewModel.isLoggedIn, false);
     });
 
     test('TC_AUTH_VM_006: Username Length Boundary Values', () {

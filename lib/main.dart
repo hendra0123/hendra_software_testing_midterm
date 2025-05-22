@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      color: Colors.blue,
       title: 'Login App',
-      home: const LoginView(),
+      home: LoginView(),
     );
   }
 }

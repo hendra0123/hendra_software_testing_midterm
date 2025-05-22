@@ -1,20 +1,17 @@
-// lib/viewmodels/auth_view_model.dart
 import 'package:flutter/material.dart';
 import 'package:hendra_software_testing_midterm/models/user.dart';
-
 import '../models/auth_service.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final AuthService _authService;
-
   User? user;
 
   AuthViewModel(this._authService);
 
+  bool get isLoggedIn => user != null; // ✅ Tambahkan ini
+
   String? validateUsername(String username) {
-    if (username.isEmpty) {
-      return 'Username cannot be empty.';
-    }
+    if (username.isEmpty) return 'Username cannot be empty.';
     if (username.length < 3 || username.length > 20) {
       return 'Username must be between 3 and 20 characters.';
     }
@@ -25,9 +22,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   String? validatePassword(String password) {
-    if (password.isEmpty) {
-      return 'Password cannot be empty.';
-    }
+    if (password.isEmpty) return 'Password cannot be empty.';
     if (password.length < 6) {
       return 'Password must be at least 6 characters long.';
     }
@@ -37,17 +32,17 @@ class AuthViewModel extends ChangeNotifier {
   Future<String?> login(String username, String password) async {
     try {
       final result = await _authService.login(username, password);
-      user = User.fromJson(result); // <- Simpan user
-      print(result);
-      return null; // Login berhasil
+      user = User.fromJson(result);
+      notifyListeners(); // ✅ Tambahkan
+      return null;
     } catch (e) {
-      print(e);
-      return e.toString(); // Login gagal
+      return e.toString();
     }
   }
 
   Future<void> logout() async {
     await _authService.logout();
-    user = null; // <- Clear user
+    user = null;
+    notifyListeners(); // ✅ Tambahkan
   }
 }
